@@ -25,11 +25,6 @@ namespace WebApi.Controllers
         {
             usuarioService.Save(usuario);
 
-            if (usuarioService.Save(usuario))
-            {
-
-            }
-
             return Ok("insercion exitosa");
         }
 

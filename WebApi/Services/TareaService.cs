@@ -1,6 +1,4 @@
-﻿using Azure.Core;
-using Microsoft.EntityFrameworkCore;
-using WebApi.Models;
+﻿using WebApi.Models;
 
 namespace WebApi.Services
 {
@@ -11,23 +9,24 @@ namespace WebApi.Services
         {
             context = dbcontext;
         }
-        public IEnumerable<Tarea> Get()
+
+        public IEnumerable<Tarea> GetService()
         {
             return context.Tareas;
         }
 
-        public async Task Save(Tarea tareas)
+        public async Task SaveService(Tarea tareas)
         {
             await context.AddAsync(tareas);
             context.SaveChanges();
         }
 
-        public async Task Update(Guid id, Tarea tareaBody)
+        public async Task UpdateService(Guid id, Tarea tareaBody)
         {
             var tareaActual = context.Tareas.Find(id);
 
-//            Console.WriteLine(tareaBody.Titulo, tareaBody.Descripcion, tareaBody.PrioridadTarea);
-//           Console.WriteLine(tareaBody.CategoriaId);
+            //            Console.WriteLine(tareaBody.Titulo, tareaBody.Descripcion, tareaBody.PrioridadTarea);
+            //           Console.WriteLine(tareaBody.CategoriaId);
 
             if (tareaActual != null && tareaBody != null)
             {
@@ -47,7 +46,7 @@ namespace WebApi.Services
             }
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteService(Guid id)
         {
             var tareaActual = context.Tareas.Find(id);
             if (tareaActual != null)
@@ -64,9 +63,9 @@ namespace WebApi.Services
 
     public interface ITareaService
     {
-        IEnumerable<Tarea> Get();
-        Task Save(Tarea tareas);
-        Task Update(Guid id, Tarea tarea);
-        Task Delete(Guid id);
+        IEnumerable<Tarea> GetService();
+        Task SaveService(Tarea tareas);
+        Task UpdateService(Guid id, Tarea tarea);
+        Task DeleteService(Guid id);
     }
 }
