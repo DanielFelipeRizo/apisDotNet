@@ -1,4 +1,5 @@
 using WebApi;
+using WebApi.Middlewares;
 using WebApi.Services;
 
 
@@ -38,8 +39,14 @@ app.UseAuthorization();
 //middleware de pagina de inicio de la api
 //app.UseWelcomePage();
 
+//middleware que agrega la hora en los json
 //app.UseTimeMiddleware();
 
 app.MapControllers();
 
 app.Run();
+
+//comandos migraciones EF
+//nombre de la migracion: dotnet ef migrations add nombreMigracion
+//ejecutar migracion en la DB: dotnet ef database update
+

@@ -9,7 +9,7 @@ namespace WebApi.Controllers
 
     public class TareaController : ControllerBase
     {
-        //obtener el contexto
+        //recibir el contexto y servicio
         private readonly TareasContext context;
         ITareaService tareaService;
         public TareaController(TareasContext contextC, ITareaService tareaServiceC)
@@ -32,11 +32,9 @@ namespace WebApi.Controllers
         {
             var taskById = await context.Tareas.FirstOrDefaultAsync(m => m.TareaId == id);
 
-            if (id == null || context.Tareas == null || taskById == null)
-            {
-                return NotFound("No encontrado");
-            }
-            return Ok(taskById);
+            return (id == null || context.Tareas == null || taskById == null) ?
+                NotFound("No encontrado") : Ok(taskById);
+
         }
 
         [HttpPost]

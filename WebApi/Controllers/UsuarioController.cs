@@ -1,23 +1,37 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApi.Services;
 using WebApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Controllers
 {
     [Route("api/[Controller]")]
     public class UsuarioController: ControllerBase
     {
+        private readonly TareasContext context;
         IUsuarioService usuarioService;
 
-        public UsuarioController(IUsuarioService service)
+        public UsuarioController(TareasContext contextC, IUsuarioService usuarioServiceC)
         {
-            usuarioService = service;
+            context= contextC;
+            usuarioService= usuarioServiceC;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(usuarioService.GetAll());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid? id)
+        {
+            var userById = await context.Usuarios.FirstOrDefaultAsync(m => m.UsuarioId == id);
+            if (id == null || context.Usuarios == null || userById == null)
+            {
+                return NotFound("No encontrado");
+            }
+            return Ok(userById);
         }
 
         [HttpPost]

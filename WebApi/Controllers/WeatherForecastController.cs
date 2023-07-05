@@ -34,7 +34,7 @@ namespace WebApi.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         //[Route("Get/weatherforecast")]
         //[Route("Get/weatherforecast2")]
-        //[Route("[action]")]
+        //[Route("[action]")] //permite usar el nombre del metodo en la ruta
         public IEnumerable<WeatherForecast> GetW()
         {
             _logger.LogInformation("retornando lista de WeatherForecast");
